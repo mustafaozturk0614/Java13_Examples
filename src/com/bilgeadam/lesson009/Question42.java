@@ -6,12 +6,8 @@ import java.util.Scanner;
 /*
     bir metoto yazacagız bu metot bize dışarıdan  2 tane sayı alacak ve bunları bir arraye atayacak daha sonra
     arrayin ilk 2 elamnın carpımını donecek
-
-
  */
 public class Question42 {
-
-
     public  static  int []  diziyeEkle(int sayi1,int sayi2){
         int [] array={sayi1,sayi2};
        // int carpim=array[0]*array[1];

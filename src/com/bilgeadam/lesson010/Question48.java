@@ -9,6 +9,10 @@ import java.util.Scanner;
         4-ilk harf haric sesli harflari slip yazdıran bir fonksiyon yazalım ( bir arraye atayalım) ==>Adn ,Adymn
         5-bir onceki metotdan donen degerlerin ilk uc harfini alsın ve sonuna ...(üç tane nokta eklesin)
          Adn... Ady...
+        6-bir onceki metotdan donen dizide B ile baslayan illerin basına sıra no 1-Blk 2-Bl
+        7-ikinci harfi a olanların ilk sadce ilk 3 harfini buyuk yazdırın (Çankırı==>ÇAN,manisa===>MAN)
+          ÇAN
+          MAN
 
 
 
