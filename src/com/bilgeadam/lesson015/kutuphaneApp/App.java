@@ -41,6 +41,18 @@ import java.util.Scanner;
     9 - app sınıfında bir kitapListele metodu olsun o metot bize
     kutuphane managerda olusturdugumuz kitaplarıGetir metodundan donen arrayı yazdırsın
 
+    10- Kitap bul metodu yazacagız
+    ==> APP deki metot ==> burda dısarıdan bir kitap ismi alan bir metot tasarlayacagız
+    bu metot
+      ===>KutuphaneMAnagerdaki metot==>  kutuphane managerla iletşime geçip kitaplar arayinde bu kitap varmı diye kontrol edecek
+    eger var ise kitabı donsun yok ise null donsun
+    APP deki metot dun devamı===>   daha sonra eger kitap var ise kitabbilgileri goster metodu calıssın  eger yok ise kitap bulunamadı
+
+    11- Kitap ismine gore arayimizden kitabı sileceğiz
+     ==> App sınıfında kitapCıkar diye bir metot yazalım ve bu kullanıcıdan bir kitap ismi alsın
+        daha sonra o kitap varmı diye kontrol etsin varsa  kitaplar arayinden silen metoda gitsin
+        yoksa kitap bulunamadı çıktısı //
+
  */
 public class App {
     Scanner scanner=new Scanner(System.in);
@@ -81,13 +93,13 @@ public class App {
                     kitapBilgileriniGir();
                     break;
                 case 2:
-                    System.out.println("Kitap Çıkarıldı");
+                    kitapÇıkar();
                     break;
                 case 3:
                     kitaplariListele();
                     break;
                 case 4:
-                    System.out.println("Kitap bulundu");
+                   kitapBul();
                     break;
                 case 5:
                     System.out.println("Yazar ismine göre Kitaplar bulunud");
@@ -122,15 +134,51 @@ public class App {
     public  void  kitaplariListele(){
     Kitap[]  kitaplar =kutuphaneManager.kitaplariGetir();
     for (Kitap kitap :kitaplar){
-        if (kitap==null){
-           break;
+        if (kitap!=null){
+            kitap.bilgileriGoster();
+        }else{
+            System.out.println("null");
         }
-        kitap.bilgileriGoster();
+
     }
         System.out.println("///////////2.metot///////////////");
-        for (int i = 0; i <Kutuphane.kitapIndex; i++) {
-          kitaplar[i].bilgileriGoster();
+//        for (int i = 0; i <Kutuphane.kitapIndex; i++) {
+//          kitaplar[i].bilgileriGoster();
+//        }
+    }
+
+    public  Kitap kitapBul(){
+        System.out.println("Lütfen bir kitap ismi giriniz");
+        String kitapIsmi= scanner.nextLine();
+        Kitap kitap= kutuphaneManager.kitapVarmi(kitapIsmi);
+        if ( kitap!=null){
+            kitap.bilgileriGoster();
+        }else{
+            System.out.println("Aradığınız kitap bulunamadı");
         }
+        return  kitap;
+    }
+
+    public  void kitapÇıkar(){
+        System.out.println("Lütfen bir kitap ismi giriniz");
+        String kitapIsmi= scanner.nextLine();
+        int index= kutuphaneManager.kitapVarmi2(kitapIsmi);
+        if ( index!=-1){
+            // silme işlemine gideceğiz
+            KutuphaneManager.kitapSil2(index);
+        }else{
+            System.out.println("Aradığınız kitap bulunamadı");
+        }
+    }
+
+    public  void kitapÇıkar2(){
+       Kitap kitap=kitapBul();
+       if (kitap!=null){
+           // silme işlemi
+           KutuphaneManager.kitapSil(kitap);
+       }else{
+           System.out.println("Aradığınız kitap bulunamadı");
+       }
     }
 
 }
