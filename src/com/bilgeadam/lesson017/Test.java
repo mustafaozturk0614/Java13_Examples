@@ -28,17 +28,27 @@ package com.bilgeadam.lesson017;
     ram ..mouse gibi 5 6 tane ozellik yazıp bu ozellikler içinde sınıflar yaratalım
     test sınıfndada denemelerle nesnelerimiz olusturalım
 
-
-
  */
+
+import com.bilgeadam.lesson017.altsınıflar.Muhendis;
+import com.bilgeadam.lesson017.altsınıflar.OfisCalisani;
 
 public class Test {
 
     public static void main(String[] args) {
-        OfisCalisani calisan=new OfisCalisani("Mustafa","Öztürk",15000);
+        OfisCalisani calisan=new OfisCalisani("Mustafa","Öztürk",20000);
+        calisan.zamYap(0.2);
+
         System.out.println(calisan.toString());
-        Muhendis muhendis=new Muhendis("Zeliha","Aydoğdu",17000);
+        Muhendis muhendis=new Muhendis("Zeliha","Aydoğdu",30000);
+        muhendis.zamYap(0.2);
         System.out.println(muhendis.toString());
+        Tekniker tekniker=new Tekniker("","",20000);
+        tekniker.zamYap(0.3);
+        System.out.println(muhendis.getMaas());
+       // System.out.println(muhendis.setMaas(500000));
+
+
     }
 
 

@@ -1,9 +1,11 @@
-package com.bilgeadam.lesson017;
+package com.bilgeadam.lesson017.altsınıflar;
 
-public class OfisCalisani  extends  Calisan{
+import com.bilgeadam.lesson017.Calisan;
+
+public class OfisCalisani  extends Calisan {
     public OfisCalisani(String isim, String soyIsım) {
         super(isim, soyIsım);
-        this.unvan="Ofis Calısanı";
+        setUnvan("Ofis Calısanı");;
     }
 
     public OfisCalisani(String isim, String soyIsım, double maas) {
@@ -14,12 +16,14 @@ public class OfisCalisani  extends  Calisan{
         if (maas<18000){
             System.out.println("18 000 altında bir maas girilmiş ise en dusuk maas 18 000 dir " +
                     "personel maası 18 000 olarak ayarlandı");
-            this.unvan="Ofis Calısanı";
-            this.maas=18000;
+           setUnvan("Ofis Calısanı");;
+            setMaas(18000);;
         } else if (maas<27000) {
-            this.unvan="Ofis Calısanı";
+            setUnvan("Ofis Calısanı");
         }else {
-            this.unvan="Kıdemli Calısan";
+           setUnvan("Kıdemli Calısan");;
         }
     }
+
+
 }

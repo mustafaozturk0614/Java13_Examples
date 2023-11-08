@@ -2,10 +2,10 @@ package com.bilgeadam.lesson017;
 
 public class Calisan {
 
-    String isim;
-    String soyIsım;
-    String unvan;
-    double maas;
+   private   String isim;
+    private   String soyIsım;
+    private  String unvan;
+    private  double maas;
 
     public  Calisan(String isim,String soyIsım){
         this.isim=isim;
@@ -29,5 +29,39 @@ public class Calisan {
                 ", unvan='" + unvan + '\'' +
                 ", maas=" + maas +
                 '}';
+    }
+
+    public  void  zamYap(double oran){
+        this.maas+=(this.maas*oran);
+    }
+
+    public double getMaas(){
+        return  this.maas;
+    }
+    public void setMaas(double maas){
+        this.maas=maas;
+
+    }
+    public String getIsim(){
+        return  this.isim;
+    }
+    public  void  setIsim(String isim){
+        this.isim=isim;
+    }
+
+    public String getSoyIsım() {
+        return soyIsım;
+    }
+
+    public void setSoyIsım(String soyIsım) {
+        this.soyIsım = soyIsım;
+    }
+
+    public String getUnvan() {
+        return unvan;
+    }
+
+    public void setUnvan(String unvan) {
+        this.unvan = unvan;
     }
 }
