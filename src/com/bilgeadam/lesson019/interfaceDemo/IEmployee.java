@@ -1,4 +1,4 @@
-package com.bilgeadam.lesson019;
+package com.bilgeadam.lesson019.interfaceDemo;
 /*
     1 İnterfacelerde genellikle govdeli metodlar kullanılmaz
      istisna olarak default ve static govdeli metotlar yazılabilir

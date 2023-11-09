@@ -1,4 +1,4 @@
-package com.bilgeadam.lesson019;
+package com.bilgeadam.lesson019.interfaceDemo;
 
 public class Chef  extends  Employee implements IChefInterface{
 
