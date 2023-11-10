@@ -12,7 +12,6 @@ yukAlma===> kamyon yuk aldı ,kargo ucagı yuk aldı  yuk gemisi yuk aldı
 yukVerme===> kamyon yuku teslim etti ,kargo ucagı yuku teslim etti  yuk gemisi yuku teslim etti
  */
 public class Test {
-
     public static void main(String[] args) {
         Gemi gemi=new Gemi();
         YukGemisi yukGemisi=new YukGemisi();
@@ -20,6 +19,10 @@ public class Test {
         Ucak ucak=new Ucak();
         KargoUcagi kargoUcagi=new KargoUcagi();
         Kamyon kamyon=new Kamyon();
+        IDenizTasiti denizTasiti=new Gemi();
+        IDenizTasiti denizTasiti2=new YukGemisi();
+        denizTasiti.yelkenAc();
+        denizTasiti2.limanaYanas();
         gemi.yelkenAc();
         gemi.hizlan();
         gemi.limanaYanas();
@@ -41,5 +44,26 @@ public class Test {
         kamyon.yavasla();
         kamyon.yukAl();
         kamyon.yukBosalt();
+
+
+//        yukAlma(otomobil);
+//        yukAlma(gemi);
+//        yukAlma(ucak);
+        yukAlma(yukGemisi);
+        yukAlma(kamyon);
+        yukAlma(kargoUcagi);
+        yukVerme(kargoUcagi);
     }
+
+
+    public  static void yukAlma(IYuk tasit){
+        tasit.yukAl();
+    }
+
+
+    public  static void yukVerme(IYuk tasit){
+        tasit.yukBosalt();
+    }
+
+
 }
