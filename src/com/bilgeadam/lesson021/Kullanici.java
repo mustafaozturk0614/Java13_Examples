@@ -1,7 +1,7 @@
 package com.bilgeadam.lesson021;
 
 public class Kullanici {
-    private long id;
+    private int id;
     private  String ad;
     private String username;
     private String password;
@@ -12,12 +12,17 @@ public class Kullanici {
         this.username = username;
         this.password = password;
     }
-
-    public long getId() {
+    public Kullanici(int id,String ad, String username, String password) {
+        this.id=id;
+        this.ad = ad;
+        this.username = username;
+        this.password = password;
+    }
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
