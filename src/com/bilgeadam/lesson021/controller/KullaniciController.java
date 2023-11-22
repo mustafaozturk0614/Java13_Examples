@@ -6,6 +6,7 @@ import com.bilgeadam.lesson021.enums.EUrun;
 import com.bilgeadam.lesson021.service.KullaniciServis;
 import com.bilgeadam.lesson021.utility.Database;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,6 +34,12 @@ uygulama başlarken default 3 tane kullanıcmız olsun
                             çıkış
 
      Sepeti goster metodu=> eğer kullanıcın sepeti boş işse sepetniz boş yazsın eger dolu ise urunleri yazdırsın
+
+     sepete urun ekle ==> once urun listemizi gorecegiz daha sonra urun listemizden bir urun secip sepetimize ekleyeceğiz
+
+     ödev==>
+     her urunun bir fiyatı olsa ve sepeti goster metodu calıstığı zaman urun listelemeyle beraber
+     sepetteki urunlerin toplamını bana yazdırsa
  */
 public class KullaniciController {
     Scanner scanner=new Scanner(System.in);
@@ -141,6 +148,7 @@ public class KullaniciController {
                     sepetiGoster();
                     break;
                 case 2:
+                    urunEkle();
                     break;
                 case 3:
                     System.out.println("Üst menuye donuluyor...");
@@ -159,6 +167,7 @@ public class KullaniciController {
                     sepetiGoster2(kullanici);
                     break;
                 case 2:
+                    urunEkle();
                     break;
                 case 3:
                     System.out.println("Üst menuye donuluyor...");
@@ -192,4 +201,26 @@ public class KullaniciController {
         return username;
     }
 
+    public void  urunListesi(){
+        System.out.println("Urunler".toUpperCase());
+        EUrun [] urunler=EUrun.values();
+        for (EUrun urun:urunler){
+            System.out.println((urun.ordinal()+1)+"-"+urun.toString());
+        }
+        System.out.println("Üst menüye donmek için 0 a basın ");
+    }
+
+    public void  urunEkle(){
+        int secim;
+        urunListesi();
+        while ((secim=scanner.nextInt())!=0){
+            EUrun urun=EUrun.values()[secim-1];
+//            Sepet sepet=aktifKullanici.getSepet();
+//            List<EUrun> urunler=aktifKullanici.getSepet().getUrunler();
+//            List<EUrun> urunler2=sepet.getUrunler();
+            aktifKullanici.getSepet().getUrunler().add(urun);
+            System.out.println(urun + " basarı ile eklendi");
+            urunListesi();
+       }
+    }
 }
