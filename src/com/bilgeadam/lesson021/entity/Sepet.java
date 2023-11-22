@@ -1,21 +1,25 @@
-package com.bilgeadam.lesson021;
+package com.bilgeadam.lesson021.entity;
 
+import com.bilgeadam.lesson021.enums.EUrun;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Sepet {
-    private EUrun [] urunler;
+    private List<EUrun> urunler;
     private int urunSayisi;
     private double toplam;
 
     public Sepet() {
-        this.urunler=new EUrun[10];
+        this.urunler=new ArrayList<>();
     }
 
-    public EUrun[] getUrunler() {
+    public List<EUrun> getUrunler() {
         return urunler;
     }
 
-    public void setUrunler(EUrun[] urunler) {
+    public void setUrunler(List<EUrun> urunler) {
         this.urunler = urunler;
     }
 
@@ -38,7 +42,7 @@ public class Sepet {
     @Override
     public String toString() {
         return "Sepet{" +
-                "urunler=" + Arrays.toString(urunler) +
+                "urunler=" + urunler +
                 ", urunSayisi=" + urunSayisi +
                 ", toplam=" + toplam +
                 '}';

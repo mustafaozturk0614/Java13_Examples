@@ -1,11 +1,11 @@
-package com.bilgeadam.lesson021;
+package com.bilgeadam.lesson021.entity;
 
 public class Kullanici {
     private int id;
     private  String ad;
     private String username;
     private String password;
-    private  Sepet  sepet;
+    private Sepet sepet;
 
     public Kullanici(String ad, String username, String password) {
         this.ad = ad;

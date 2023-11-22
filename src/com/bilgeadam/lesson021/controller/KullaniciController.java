@@ -1,5 +1,10 @@
-package com.bilgeadam.lesson021;
+package com.bilgeadam.lesson021.controller;
 
+import com.bilgeadam.lesson021.entity.Kullanici;
+import com.bilgeadam.lesson021.service.KullaniciServis;
+import com.bilgeadam.lesson021.utility.Database;
+
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -25,14 +30,23 @@ uygulama başlarken default 3 tane kullanıcmız olsun
                             Urun ekle
                             çıkış
 
-
+     Sepeti goster metodu=> eğer kullanıcın sepeti boş işse sepetniz boş yazsın eger dolu ise urunleri yazdırsın
  */
-public class App {
-
+public class KullaniciController {
     Scanner scanner=new Scanner(System.in);
 
+    private   KullaniciServis kullaniciServis;
+
+    public KullaniciController() {
+      this.kullaniciServis = new KullaniciServis();
+    }
+
+    public KullaniciController(KullaniciServis kullaniciServis) {
+        this.kullaniciServis = kullaniciServis;
+    }
+
     public void uygulamayiBaslat(){
-        Database.baslangicVerisiOlustur();
+        kullaniciServis.baslangicVerisiOlustur();
 
         while (true){
             menu();
@@ -58,7 +72,7 @@ public class App {
     }
 
     private void kulaniclariGoster() {
-      Kullanici [] kullaniclar=Database.kullanicilariGetir();
+   List<Kullanici> kullaniclar=kullaniciServis.kullaniclariGetir();
         for (Kullanici kullanici:kullaniclar){
             System.out.println(kullanici);
         }
@@ -67,16 +81,14 @@ public class App {
     public void kayitOl() {
         System.out.println("Lütfen bir isim giriniz");
         String ad=scanner.nextLine();
-
         System.out.println("Lütfen bir kullanıcı adı giriniz");
         // kullanıcı adını kontrol edip geçerli bir kullancı adı donen metot
         String username=kullaniciAdiKontrol();
-
         System.out.println("Lütfen bir şifre giriniz");
         String password=scanner.nextLine();
         Kullanici kullanici=new Kullanici(ad,username,password);
-        Database.kullanciEkle(kullanici);
-        System.out.println(kullanici.getAd()+" database'e basarıyla eklendi");
+        kullaniciServis.kayitEt(kullanici);
+
     }
 
     public  void  menu(){
@@ -85,34 +97,47 @@ public class App {
         System.out.println("3-Kullanıcıalrı goster");
         System.out.println("4-Çıkış");
     }
+    public void  kullaniciMenusu(){
+        System.out.println("====Kullanici Menusu====");
+        System.out.println("1-Sepeti Goster");
+        System.out.println("2-Sepete ürün Ekle");
+        System.out.println("3-Ana menuye dön");
+    }
+    public void  kullaniciMenusuBaslat(){
+        int secim=3;
+        do {
+            kullaniciMenusu();
+            secim= scanner.nextInt();
+            switch (secim){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    System.out.println("Üst menuye donuluyor...");
+                    break;
+            };
+        }while (secim!=3);
 
+    }
     public  void girisYap(){
         System.out.println("Lütfen kullanıcı adını giriniz");
         String username=scanner.nextLine();
         System.out.println("Lütfen şifrenizi giriniz");
         String password=scanner.nextLine();
-        Kullanici kullanici =Database.kullanıciAdiveSifreIleKullanıciGetir(username,password);
+        Kullanici kullanici =kullaniciServis.kullanıciAdiveSifreIleKullanıciGetir(username,password);
         if (kullanici!=null){
-            System.out.println("Giriş başarılı");
-        }else{
-            System.out.println("Kullanıcı adı veya şifre hatalı");
+            kullaniciMenusuBaslat();
         }
 
     }
-
     // kullanıcı adını kontrol edip geçerli bir kullancı adı donen metot
     public String kullaniciAdiKontrol(){
         Kullanici kullanici=null;
         String username=null;
         do {
             username=scanner.nextLine();
-            kullanici=Database.kullanıciAdiIleKullanıciGetir(username);
-
-            if (kullanici!=null){
-                System.out.println("Sistemde var olan bir kullanıc adı girdiniz " +
-                        "lutfen yeni bir kullancı adı ile deneyiniz");
-            }
-
+            kullanici=kullaniciServis.kullanıciAdiIleKullanıciGetir(username);
         }while (kullanici!=null);
         return username;
     }
