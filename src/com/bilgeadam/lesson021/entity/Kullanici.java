@@ -11,12 +11,14 @@ public class Kullanici {
         this.ad = ad;
         this.username = username;
         this.password = password;
+        this.sepet=new Sepet();
     }
     public Kullanici(int id,String ad, String username, String password) {
         this.id=id;
         this.ad = ad;
         this.username = username;
         this.password = password;
+        this.sepet=new Sepet();
     }
     public int getId() {
         return id;
@@ -48,6 +50,14 @@ public class Kullanici {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Sepet getSepet() {
+        return sepet;
+    }
+
+    public void setSepet(Sepet sepet) {
+        this.sepet = sepet;
     }
 
     @Override

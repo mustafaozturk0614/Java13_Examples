@@ -1,6 +1,8 @@
 package com.bilgeadam.lesson021.controller;
 
 import com.bilgeadam.lesson021.entity.Kullanici;
+import com.bilgeadam.lesson021.entity.Sepet;
+import com.bilgeadam.lesson021.enums.EUrun;
 import com.bilgeadam.lesson021.service.KullaniciServis;
 import com.bilgeadam.lesson021.utility.Database;
 
@@ -34,6 +36,8 @@ uygulama başlarken default 3 tane kullanıcmız olsun
  */
 public class KullaniciController {
     Scanner scanner=new Scanner(System.in);
+
+    private  Kullanici aktifKullanici;
 
     private   KullaniciServis kullaniciServis;
 
@@ -70,6 +74,29 @@ public class KullaniciController {
         }
 
     }
+    public void sepetiGoster(){
+        //aktifKullanici.setSepet(new Sepet());
+        if (aktifKullanici.getSepet().getUrunler().isEmpty()){
+            System.out.println("Sepetiniz bos");
+        }else {
+            System.out.println("Sepetinizdeki urunler");
+            for (EUrun urun :aktifKullanici.getSepet().getUrunler()){
+                System.out.println(urun);
+            }
+        }
+
+    }
+    public void sepetiGoster2(Kullanici kullanici){
+        if (kullanici.getSepet().getUrunler().isEmpty()){
+            System.out.println("Sepetiniz bos");
+        }else {
+            System.out.println("Sepetinizdeki urunler");
+            for (EUrun urun :kullanici.getSepet().getUrunler()){
+                System.out.println(urun);
+            }
+        }
+
+    }
 
     private void kulaniclariGoster() {
    List<Kullanici> kullaniclar=kullaniciServis.kullaniclariGetir();
@@ -87,6 +114,7 @@ public class KullaniciController {
         System.out.println("Lütfen bir şifre giriniz");
         String password=scanner.nextLine();
         Kullanici kullanici=new Kullanici(ad,username,password);
+      //  kullanici.setSepet(new Sepet());
         kullaniciServis.kayitEt(kullanici);
 
     }
@@ -110,6 +138,25 @@ public class KullaniciController {
             secim= scanner.nextInt();
             switch (secim){
                 case 1:
+                    sepetiGoster();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    System.out.println("Üst menuye donuluyor...");
+                    break;
+            };
+        }while (secim!=3);
+
+    }
+    public void  kullaniciMenusuBaslat2(Kullanici kullanici){
+        int secim=3;
+        do {
+            kullaniciMenusu();
+            secim= scanner.nextInt();
+            switch (secim){
+                case 1:
+                    sepetiGoster2(kullanici);
                     break;
                 case 2:
                     break;
@@ -127,7 +174,10 @@ public class KullaniciController {
         String password=scanner.nextLine();
         Kullanici kullanici =kullaniciServis.kullanıciAdiveSifreIleKullanıciGetir(username,password);
         if (kullanici!=null){
+            aktifKullanici=kullanici;
+
             kullaniciMenusuBaslat();
+          //  kullaniciMenusuBaslat2(kullanici);
         }
 
     }
