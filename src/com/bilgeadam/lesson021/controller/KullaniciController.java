@@ -40,6 +40,7 @@ uygulama başlarken default 3 tane kullanıcmız olsun
      ödev==>
      her urunun bir fiyatı olsa ve sepeti goster metodu calıstığı zaman urun listelemeyle beraber
      sepetteki urunlerin toplamını bana yazdırsa
+
  */
 public class KullaniciController {
     Scanner scanner=new Scanner(System.in);
@@ -61,8 +62,7 @@ public class KullaniciController {
 
         while (true){
             menu();
-            int secim=scanner.nextInt();
-            scanner.nextLine();
+            int secim=Integer.parseInt(scanner.nextLine());
             switch (secim){
                 case 1:
                     kayitOl();
@@ -83,15 +83,34 @@ public class KullaniciController {
     }
     public void sepetiGoster(){
         //aktifKullanici.setSepet(new Sepet());
+        double toplam=0;
         if (aktifKullanici.getSepet().getUrunler().isEmpty()){
             System.out.println("Sepetiniz bos");
         }else {
             System.out.println("Sepetinizdeki urunler");
+
             for (EUrun urun :aktifKullanici.getSepet().getUrunler()){
                 System.out.println(urun);
+                toplam+=urun.getFiyat();
+                aktifKullanici.getSepet().setToplam(toplam);
+
+
             }
+            System.out.println("toplam"+ toplam);
         }
 
+        System.out.println("2. toplam "+ aktifKullanici.getSepet().getToplam());  ;
+
+    }
+    public void sepetiGoster3(){
+        if (aktifKullanici.getSepet().getUrunler().isEmpty()){
+            System.out.println("Sepetiniz bos");
+        }else {
+            System.out.println("Sepetiniz");
+            aktifKullanici.getSepet().toplamTutariHesapla3();
+            System.out.println(aktifKullanici.getSepet().getUrunler());
+            System.out.println(aktifKullanici.getSepet().getToplam());
+        }
     }
     public void sepetiGoster2(Kullanici kullanici){
         if (kullanici.getSepet().getUrunler().isEmpty()){
@@ -136,32 +155,52 @@ public class KullaniciController {
         System.out.println("====Kullanici Menusu====");
         System.out.println("1-Sepeti Goster");
         System.out.println("2-Sepete ürün Ekle");
+        System.out.println("3-Alışverişi Tamamla");
         System.out.println("3-Ana menuye dön");
     }
     public void  kullaniciMenusuBaslat(){
-        int secim=3;
+        int secim=4;
         do {
             kullaniciMenusu();
-            secim= scanner.nextInt();
+            secim= Integer.parseInt(scanner.nextLine());
             switch (secim){
                 case 1:
-                    sepetiGoster();
+                   // sepetiGoster();
+                    sepetiGoster3();
                     break;
                 case 2:
                     urunEkle();
                     break;
                 case 3:
+                   alisverisiTamamla();
+                    break;
+                case 4:
                     System.out.println("Üst menuye donuluyor...");
                     break;
             };
-        }while (secim!=3);
+        }while (secim!=4);
 
     }
+
+    private void alisverisiTamamla() {
+        System.out.println("ALısverişi Tamamlamak istiyormusunuz (E/H)");
+        String karar=scanner.nextLine();
+        if (karar.equalsIgnoreCase("E")){
+            //aktifKullanici.getSepet().setUrunler(new ArrayList<>());
+            aktifKullanici.getSepet().getUrunler().clear();
+            aktifKullanici.getSepet().setHesaplandiMi(false);
+            aktifKullanici.getSepet().setToplam(0);
+        }else {
+            System.out.println("Alışveriş tamamlanmadı");
+        }
+
+    }
+
     public void  kullaniciMenusuBaslat2(Kullanici kullanici){
         int secim=3;
         do {
             kullaniciMenusu();
-            secim= scanner.nextInt();
+            secim= Integer.parseInt(scanner.nextLine());
             switch (secim){
                 case 1:
                     sepetiGoster2(kullanici);
@@ -213,7 +252,7 @@ public class KullaniciController {
     public void  urunEkle(){
         int secim;
         urunListesi();
-        while ((secim=scanner.nextInt())!=0){
+        while ((secim=Integer.parseInt(scanner.nextLine()))!=0){
             EUrun urun=EUrun.values()[secim-1];
 //            Sepet sepet=aktifKullanici.getSepet();
 //            List<EUrun> urunler=aktifKullanici.getSepet().getUrunler();

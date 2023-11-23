@@ -10,6 +10,15 @@ public class Sepet {
     private List<EUrun> urunler;
     private int urunSayisi;
     private double toplam;
+    private  boolean hesaplandiMi;
+
+    public boolean isHesaplandiMi() {
+        return hesaplandiMi;
+    }
+
+    public void setHesaplandiMi(boolean hesaplandiMi) {
+        this.hesaplandiMi = hesaplandiMi;
+    }
 
     public Sepet() {
         this.urunler=new ArrayList<>();
@@ -37,6 +46,38 @@ public class Sepet {
 
     public void setToplam(double toplam) {
         this.toplam = toplam;
+    }
+
+
+    public  double toplamTutariHesapla(){
+        double sonuc=0;
+        for (EUrun urun : urunler){
+           sonuc+=urun.getFiyat();
+        }
+        toplam=sonuc;
+        return  toplam;
+    }
+    public  double toplamTutariHesapla2(){
+       toplam=0;
+        for (EUrun urun : urunler){
+            toplam+=urun.getFiyat();
+        }
+
+        return  toplam;
+    }
+
+    public  double toplamTutariHesapla3(){
+            if (!hesaplandiMi){
+                for (EUrun urun : urunler){
+                    toplam+=urun.getFiyat();
+                }
+                hesaplandiMi=true;
+            }else {
+                System.out.println("Daha once hesaplanmıştır");
+            }
+
+
+        return  toplam;
     }
 
     @Override
