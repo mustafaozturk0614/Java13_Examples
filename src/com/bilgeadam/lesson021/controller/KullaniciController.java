@@ -58,8 +58,7 @@ public class KullaniciController {
     }
 
     public void uygulamayiBaslat(){
-        kullaniciServis.baslangicVerisiOlustur();
-
+       kullaniciServis.baslangicVerisiOlustur();
         while (true){
             menu();
             int secim=Integer.parseInt(scanner.nextLine());
