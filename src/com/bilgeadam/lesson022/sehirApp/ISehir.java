@@ -11,4 +11,9 @@ public interface ISehir {
     // 10 a kadar olanların basına 0 eklenecek
     // 01,02.....09,10,11
    void plakaKoduAta(Sehir sehir,int i);
+
+   // rastgele bolgeAta metodu yazacagız
+    // bir sehire bir bolge atayacak (bu atama işlemini
+    //rastgele yapacak)
+   void bolgeAta(Sehir sehir);
 }

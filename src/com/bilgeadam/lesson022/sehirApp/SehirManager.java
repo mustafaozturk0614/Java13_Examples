@@ -10,9 +10,8 @@ import java.util.Random;
  */
 public class SehirManager implements ISehir {
 
-
+    Random random=new Random();
     public void randomNufusAta(Sehir sehir){
-        Random random=new Random();
         sehir.setNufus(random.nextLong(500000,10000000));
       //  System.out.println(sehir.getNufus());
     }
@@ -22,8 +21,15 @@ public class SehirManager implements ISehir {
             if (i<10){
                 sehir.setPlakaNo("0"+(i));
             }else {
-                sehir.setPlakaNo((i)+"");
+                sehir.setPlakaNo(String.valueOf(i));
             }
+    }
+
+    @Override
+    public void bolgeAta(Sehir sehir) {
+        int index= random.nextInt(EBolge.values().length);
+        EBolge bolge= EBolge.values()[index];
+        sehir.setBolge(bolge);
     }
 
 //    public static void main(String[] args) {
