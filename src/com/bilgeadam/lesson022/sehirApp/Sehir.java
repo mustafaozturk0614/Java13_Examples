@@ -4,8 +4,8 @@ public class Sehir {
 
     private String isim;
     private long nufus;
-    private int plakaNo;
-    private String bolge;
+    private String plakaNo;
+    private EBolge bolge;
 
     public Sehir() {
     }
@@ -30,19 +30,19 @@ public class Sehir {
         this.nufus = nufus;
     }
 
-    public int getPlakaNo() {
+    public String getPlakaNo() {
         return plakaNo;
     }
 
-    public void setPlakaNo(int plakaNo) {
+    public void setPlakaNo(String plakaNo) {
         this.plakaNo = plakaNo;
     }
 
-    public String getBolge() {
+    public EBolge getBolge() {
         return bolge;
     }
 
-    public void setBolge(String bolge) {
+    public void setBolge(EBolge bolge) {
         this.bolge = bolge;
     }
 
