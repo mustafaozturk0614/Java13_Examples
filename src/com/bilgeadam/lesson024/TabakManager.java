@@ -39,12 +39,43 @@ public class TabakManager {
                 temizler.push(tabak);
             }
         }
-
-
-
-
-
     }
 
+    public void kullan(){
+        if (temizler.isEmpty()) {
+            System.out.println("Temiz tabak kalmamıştır!!");
+            temizle();
+        }else {
+            Tabak tabak=temizler.pop();
+            System.out.println(tabak.getId()+" li tabak kullanıldı");
+            tabak.setKirliMi(true);
+            kirliler.push(tabak);
+        }
+    }
+    public void temizle(){
+        if (kirliler.isEmpty()) {
+            System.out.println("Kirli tabak kalmamıştır!!");
+            kullan();
+        }else {
+            Tabak tabak=kirliler.pop();
+            System.out.println(tabak.getId()+" li tabak temizlendi");
+            tabak.setKirliMi(false);
+            temizler.push(tabak);
+        }
+    }
+
+    public void secimYap(int secim){
+        switch (secim){
+            case 1:
+                temizle();
+                break;
+            case 2:
+                kullan();
+                break;
+            default:
+                break;
+        }
+
+    }
 
 }
