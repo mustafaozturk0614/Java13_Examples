@@ -11,7 +11,6 @@ public class Test {
     public static void main(String[] args) {
         List<Integer> list=new ArrayList<>(List.of(5,1,8,4,9));
 
-
         Comparator<Integer> buyuktenKucuge= new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
