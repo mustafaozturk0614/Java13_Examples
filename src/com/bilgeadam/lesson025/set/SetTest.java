@@ -1,4 +1,4 @@
-package com.bilgeadam.lesson025;
+package com.bilgeadam.lesson025.set;
 
 import java.util.*;
 
