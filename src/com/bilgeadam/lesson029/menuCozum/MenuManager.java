@@ -1,14 +1,14 @@
 package com.bilgeadam.lesson029.menuCozum;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MenuManager {
 
     Random random=new Random();
     List<EIcecek> icecekler=new ArrayList<>(Arrays.asList(EIcecek.values()));
+
+    List<Menu> menuler=new ArrayList<>();
 
 
 
@@ -53,6 +53,7 @@ public class MenuManager {
         Menu menu = gunlukMenuOlusutur2();
         menu.setGun(EGun.values()[i]);
             System.out.println(menu.getGun()+"===>"+menu);
+            menuler.add(menu);
         }
     }
 public EIcecek icecekAta(EIcecek [] dizi){
@@ -83,7 +84,17 @@ public EIcecek icecekAta2(){
         System.out.println(menuManager.randomTatliAta());
         System.out.println(menuManager.gunlukMenuOlusutur());
         System.out.println("///////////////");
+        // olusturdugumuz menuleri listeye atacagız
         menuManager.haftalıkMenuOlsutur();
+        /*
+         1- Gun isimlerine gore menuleri bir mape aktralım (Stream yapısı ile)
+         */
+        Map<EGun,Menu> mapMenu=menuManager.menuler.stream().collect(Collectors.toMap(m->m.getGun(),v->v));
+        System.out.println("////////////////////////");
+        System.out.println(mapMenu.get(EGun.CUMA));
+        System.out.println(mapMenu);
+        // Liste uzerinden cuma gunkü menuyu yazdıralım
+        menuManager.menuler.stream().filter(x->x.getGun().equals(EGun.CUMA)).findFirst().ifPresent(System.out::println);
 
     }
 }
