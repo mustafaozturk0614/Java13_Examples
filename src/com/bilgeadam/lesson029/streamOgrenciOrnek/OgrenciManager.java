@@ -2,6 +2,7 @@ package com.bilgeadam.lesson029.streamOgrenciOrnek;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
     burda bir listemiz olsun
@@ -49,7 +50,6 @@ public class OgrenciManager {
         OptionalDouble ort2 = ogrenciler.stream().mapToDouble(x -> x.getNotlar().stream().mapToDouble(y -> y).average().getAsDouble()).average();
         System.out.println(ort1);
         System.out.println(ort2);
-
     }
     public void  okulOrt2(){
         /*
@@ -62,6 +62,25 @@ public class OgrenciManager {
         OptionalDouble ort2 = ogrenciler.stream().mapToDouble(Ogrenci::ortalamaHesapla).average();
         System.out.println(ort1);
         System.out.println(ort2);
+    }
+
+    public void  okulOrt3(){
+        /*
+         1.ögrencinin not ort=50 { 50 ,50 ,50}
+         2.not ort 100
+         3. not ort 50;
+         */
+//        List<Double> notlar=new ArrayList<>();
+//       ogrenciler.stream()
+//                .forEach(x->{
+//                    x.getNotlar().forEach(y->notlar.add(y));
+//                });
+//        System.out.println(notlar);
+        List<Double> notlar2=ogrenciler.stream().flatMap(x->x.getNotlar().stream()).collect(Collectors.toList());
+//        List<List<Double>>  notlar3=ogrenciler.stream().map(x->x.getNotlar()).collect(Collectors.toList());
+//        List<Double> notlar4 = notlar3.stream().flatMap(x -> x.stream()).collect(Collectors.toList());
+            Double ort=notlar2.stream().collect(Collectors.averagingDouble(x->x));
+        System.out.println("ortalam3==>"+ ort);
     }
     /*
     2- ogrencileri bolume gore mapleyelim
@@ -82,6 +101,50 @@ public class OgrenciManager {
         return ogrenciler.stream().collect(Collectors.toMap(k->k.getIsim(),v-> v.ortalamaHesapla()));
     }
 
+    /*
+        not ortalamsı 50 den kucuk olanları bir listede toplayalım
+     */
+    public List<Ogrenci> notOrt50denKucukler(){
+   List<Ogrenci> ogrenciListesi= ogrenciler.stream().filter(x->
+                x.getNotlar().stream().mapToDouble(y->y).average().orElse(0)<50
+        ).collect(Collectors.toList());
+//  List<String> isimler =ogrenciler.stream().filter(x->
+//                x.getNotlar().stream().mapToDouble(y->y).average().orElse(0)<50
+//        ).map(o->o.getIsim()).collect(Collectors.toList());
+//
+//        List<Ogrenci> isimler2 =ogrenciler.stream().filter(x->
+//                x.getNotlar().stream().mapToDouble(y->y).average().orElse(0)<50
+//        ).filter(o->o.getIsim().length()>5).collect(Collectors.toList());
+
+   return  ogrenciListesi;
+    }
+  /*
+        not ortalamsı 50 den kucuk olan ogrencileri durmunu kaldı
+        not ortalamsı 50 den buyuk olan ogrencileri durmunu gecti olarak guncelleyelim
+     */
+
+    public void durumGuncelle(){
+     //   ogrenciler.stream().filter(x->x.ortalamaHesapla()<50?x.setDurum("Kaldı"):x.setDurum("Geçti"));
+//        ogrenciler.stream().filter(x->{
+//            if(x.ortalamaHesapla()<50){
+//                x.setDurum("Kaldı");
+//                return true;
+//            }else{
+//                x.setDurum("Geçti");
+//                return false;
+//            }
+//        });
+        ogrenciler.stream().forEach(x->{
+            if (x.ortalamaHesapla() < 50) {
+                x.setDurum("Kaldı");
+            } else {
+                x.setDurum("Geçti");
+            }
+        });
+
+//        ogrenciler.stream().filter(x->x.ortalamaHesapla()>50).forEach(o->o.setDurum("Geçti"));
+//        ogrenciler.stream().filter(x->x.ortalamaHesapla()<50).forEach(o->o.setDurum("Kaldı"));
+    }
 
     public static void main(String[] args) {
         OgrenciManager ogrenciManager=new OgrenciManager();
@@ -105,7 +168,6 @@ public class OgrenciManager {
         //  Ayse=80
         //
         // ]
-
         System.out.println("/////////////////");
         notlar.forEach(System.out::println);
     }
