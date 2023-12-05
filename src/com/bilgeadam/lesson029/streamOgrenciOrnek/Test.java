@@ -12,5 +12,13 @@ public class Test {
         ogrenciManager.durumGuncelle();
         ogrenciManager.ogrenciler.forEach(x->
                 System.out.println(x.getIsim()+"===>"+x.ortalamaHesapla()+"===>"+x.getDurum()));
+
+        ogrenciManager.notEkle();
+        ogrenciManager.ogrenciler.forEach(System.out::println);
+        ogrenciManager.puanEkle();
+        System.out.println("///////////////");
+        ogrenciManager.ogrenciler.forEach(System.out::println);
     }
+
+
 }

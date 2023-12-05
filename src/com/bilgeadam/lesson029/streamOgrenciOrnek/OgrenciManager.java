@@ -16,19 +16,19 @@ public class OgrenciManager {
 
     public  void baslangicVerisi(){
         Ogrenci ogrenci1=new Ogrenci(1,"Mustafa",EBolum.MF);
-        ogrenci1.setNotlar(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)));
+        ogrenci1.setNotlar(new ArrayList<>((List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)))));
         Ogrenci ogrenci2=new Ogrenci(2,"Ayşe",EBolum.TM);
-        ogrenci2.setNotlar(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)));
+        ogrenci2.setNotlar(new ArrayList<>(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101))));
         Ogrenci ogrenci3=new Ogrenci(3,"Hakan",EBolum.TM);
-        ogrenci3.setNotlar(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)));
+        ogrenci3.setNotlar(new ArrayList<>(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101))));
         Ogrenci ogrenci4=new Ogrenci(4,"Mert",EBolum.MF);
-        ogrenci4.setNotlar(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)));
+        ogrenci4.setNotlar(new ArrayList<>(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101))));
         Ogrenci ogrenci5=new Ogrenci(5,"Özge",EBolum.SOZEL);
-        ogrenci5.setNotlar(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)));
+        ogrenci5.setNotlar(new ArrayList<>(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101))));
         Ogrenci ogrenci6=new Ogrenci(2,"Sinem",EBolum.SOZEL);
-        ogrenci6.setNotlar(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)));
+        ogrenci6.setNotlar(new ArrayList<>(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101))));
         Ogrenci ogrenci7=new Ogrenci(2,"Mehmet",EBolum.TM);
-        ogrenci7.setNotlar(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101)));
+        ogrenci7.setNotlar(new ArrayList<>(List.of(random.nextDouble(10,101),random.nextDouble(10,101),random.nextDouble(10,101))));
         ogrenciler=new ArrayList<>(List.of(ogrenci1,ogrenci2,ogrenci3,ogrenci4,ogrenci5,ogrenci6,ogrenci7));
     }
 
@@ -145,6 +145,23 @@ public class OgrenciManager {
 //        ogrenciler.stream().filter(x->x.ortalamaHesapla()>50).forEach(o->o.setDurum("Geçti"));
 //        ogrenciler.stream().filter(x->x.ortalamaHesapla()<50).forEach(o->o.setDurum("Kaldı"));
     }
+
+    /*
+    her bir ogrenciye 1 tane daha random not ekleyelim
+     */
+    public void notEkle(){
+        ogrenciler.stream().forEach(x->x.getNotlar().add(random.nextDouble(10,101)));
+    }
+     /*
+    her bir ogrencinin her notuna +5 puna daha ekleyelim
+     */
+     public void puanEkle(){
+         ogrenciler.stream().
+                 forEach(x->
+                         x.setNotlar(x.getNotlar().stream().map(y->y+5).collect(Collectors.toList())));
+   //  ogrenciler.stream().forEach(x->x.getNotlar().replaceAll(n->n+5));
+       //  Stream<Ogrenci> list = ogrenciler.stream().peek(x -> x.getNotlar().replaceAll(n -> n + 5));
+     }
 
     public static void main(String[] args) {
         OgrenciManager ogrenciManager=new OgrenciManager();
