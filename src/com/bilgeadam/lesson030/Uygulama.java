@@ -1,9 +1,8 @@
 package com.bilgeadam.lesson030;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Uygulama {
 
@@ -55,5 +54,101 @@ public class Uygulama {
                 film21, film22, film23, film24, film25, film26, film27
         ));
     }
+
+    /*
+        puanları 8 den buyuk olan filmleri bir setde toplayalım
+     */
+
+    /*
+        puanları 8 den buyuk olan filmlerin yonetmen isimlerini bir setde toplayalım
+     */
+    public void yuksekPuanlilar(){
+      Set<Film> yuksekPuanlifilmler=filmler.stream().filter(f->f.getPuan()>8.0).collect(Collectors.toSet());
+        System.out.println("Filmler");
+      yuksekPuanlifilmler.forEach(System.out::println);
+     Set<String> yüksekPuanliYonetmenler=filmler.stream()
+             .filter(f->f.getPuan()>8.0)
+             .map(f->f.getYonetmen().getIsim())
+             .collect(Collectors.toSet());
+        System.out.println("isimler");
+        System.out.println(yüksekPuanliYonetmenler);
+    }
+
+    /*
+        dışarıdan bir ulke ismi alan bir metot yazalım bu metot bize o ulkedeki yonetmenleri bir listede toplasın
+
+     */
+    public void ulkeyeGoreYonetmenler(String ulke){
+        List<Yonetmen> yonetmenler=filmler.stream()
+                .map(Film::getYonetmen).distinct()
+                .filter(y->y.getUlke().equalsIgnoreCase(ulke))
+                .collect(Collectors.toList());
+        yonetmenler.forEach(System.out::println);
+        System.out.println("////////////////");
+ filmler.stream()
+            .filter(f->f.getYonetmen().getUlke().equalsIgnoreCase(ulke))
+            .map(x->x.getYonetmen()).distinct()
+            .forEach(System.out::println);
+        System.out.println("////////////////");
+//        filmler.stream()
+//                .filter(f->f.getYonetmen().getUlke().equalsIgnoreCase(ulke))
+//                .forEach(x-> System.out.println(x.getYonetmen()));
+
+    }
+
+    /*
+    hasılatı en yuksek filmi bulalım
+     */
+
+    public void enYuksekHasilatliFim(){
+        Optional<Film> film = filmler.stream().max(Comparator.comparingLong(x -> x.getHasilat()));
+        Optional<Film>  film2=filmler.stream().max(Comparator.comparingLong(Film::getHasilat));
+        Optional<Film>  film3=filmler.stream().max((x,y)-> (int) (x.getHasilat()-y.getHasilat()));
+        System.out.println(film);
+        System.out.println(film2);
+        System.out.println(film2);
+    }
+
+    /*
+    film turlerine gore filmleri tutalım
+     */
+    public void filmTurlerineGoreFilmler(){
+            Map<ETur,List<Film>> map=filmler.stream().collect(Collectors.groupingBy(x->x.getTur()));
+            map.entrySet().forEach(System.out::println);
+    }
+    /*
+    her turdeki en yuksek hasılatlı filmi eslestirelim
+     */
+    public void filmTurlerineGoreHasılatiEnyuksekFilm(){
+//        Map<ETur,Film> map2=filmler.stream().collect(Collectors.toMap(x->x.getTur(),
+//                v->{
+//            return filmler.stream().filter(f->f.getTur().equals(v.getTur())).max(Comparator.comparingLong(Film::getHasilat)).get();
+//        }));
+
+        Map<ETur,Optional<Film>> map=filmler.stream().collect(
+                Collectors.groupingBy(x->x.getTur(),
+                        Collectors.maxBy(Comparator.comparingLong(Film::getHasilat))));
+
+        map.entrySet().forEach(System.out::println);
+    }
+
+    /*
+
+
+
+     */
+
+
+    public static void main(String[] args) {
+        Uygulama uygulama=new Uygulama();
+        uygulama.baslangicVerisiOlustur();
+        //uygulama.yuksekPuanlilar();
+       // uygulama.ulkeyeGoreYonetmenler("Türkiye");
+       // uygulama.enYuksekHasilatliFim();
+        //uygulama.filmTurlerineGoreFilmler();
+        uygulama.filmTurlerineGoreHasılatiEnyuksekFilm();
+    }
+
+
 
 }
