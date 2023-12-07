@@ -3,19 +3,16 @@ package com.bilgeadam.lesson032;
 import java.util.UUID;
 
 public class Yuk {
-
     private String id;
     private String isim;
     private double agirlik;
-    private long kabulTarihi;
-    private EGun kabulGunu;
+    private MyDate date;
 
-    public Yuk(String isim, double agirlik, long kabulTarihi, EGun kabulGunu) {
+    public Yuk(String isim, double agirlik,MyDate date) {
         this.id= UUID.randomUUID().toString();
         this.isim = isim;
         this.agirlik = agirlik;
-        this.kabulTarihi = kabulTarihi;
-        this.kabulGunu = kabulGunu;
+        this.date=date;
     }
 
     public String getId() {
@@ -42,30 +39,21 @@ public class Yuk {
         this.agirlik = agirlik;
     }
 
-    public long getKabulTarihi() {
-        return kabulTarihi;
+    public MyDate getDate() {
+        return date;
     }
 
-    public void setKabulTarihi(long kabulTarihi) {
-        this.kabulTarihi = kabulTarihi;
-    }
-
-    public EGun getKabulGunu() {
-        return kabulGunu;
-    }
-
-    public void setKabulGunu(EGun kabulGunu) {
-        this.kabulGunu = kabulGunu;
+    public void setDate(MyDate date) {
+        this.date = date;
     }
 
     @Override
     public String toString() {
         return "Yuk{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", isim='" + isim + '\'' +
                 ", agirlik=" + agirlik +
-                ", kabulTarihi=" + kabulTarihi +
-                ", kabulGunu=" + kabulGunu +
+                ", date=" + date +
                 '}';
     }
 }
