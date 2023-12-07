@@ -65,6 +65,7 @@ public class TryCatchOrnek2 {
 
                 int bolum=bolunen/bolen;
                 System.out.println("sonuc==>"+bolum);
+
                 kontrol=true;
             }
             catch (ArithmeticException exception){
@@ -72,11 +73,15 @@ public class TryCatchOrnek2 {
             }catch (NullPointerException exception){
                 System.out.println("Hata olustu:"+ exception.toString()+"==> sayı null olamaz");
             }catch (InputMismatchException exception){
-               scanner.nextLine();
                 System.out.println("Hata olustu:"+ exception.toString()+"==> lütfen sayısal deger giriniz");
             }catch (Exception exception){
                 System.out.println("Hata olustu:"+ exception.toString()+"==> genel hata olustu");
+            }finally {
+                scanner.nextLine();
             }
+//            System.out.println("Lütfen bir deger giriniz");
+//            String value=scanner.nextLine();
+//            System.out.println(value);
 
         }while (!kontrol);
 
@@ -94,25 +99,25 @@ public class TryCatchOrnek2 {
 //        double sayi3=5D;
 //        double sayi4=0D;
  //     bolme2(sayi3,sayi4);
-       // bolme3();
-        Scanner scanner=new Scanner(System.in);
-        boolean kontrol=false;
-        do {
-            System.out.println("1. sayıyı giriniz");
-            Integer bolunen=null;
-
-            System.out.println("2. sayıyı giriniz");
-            int bolen=scanner.nextInt();
-            try {
-
-                bolme4(bolunen,bolen);
-                kontrol=true;
-            }catch (Exception e){
-                System.out.println("burada");
-                System.out.println(e.toString());
-            }
-
-        }while (!kontrol);
+        bolme3();
+//        Scanner scanner=new Scanner(System.in);
+//        boolean kontrol=false;
+//        do {
+//            System.out.println("1. sayıyı giriniz");
+//            Integer bolunen=null;
+//
+//            System.out.println("2. sayıyı giriniz");
+//            int bolen=scanner.nextInt();
+//            try {
+//
+//                bolme4(bolunen,bolen);
+//                kontrol=true;
+//            }catch (Exception e){
+//                System.out.println("burada");
+//                System.out.println(e.toString());
+//            }
+//
+//        }while (!kontrol);
 
     }
 

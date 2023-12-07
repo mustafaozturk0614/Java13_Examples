@@ -1,6 +1,8 @@
 package com.bilgeadam.lesson031;
-
-public class EksiDegerException extends RuntimeException{
+/*
+Checked Exception
+ */
+public class EksiDegerException extends Exception{
 
     private String message;
 

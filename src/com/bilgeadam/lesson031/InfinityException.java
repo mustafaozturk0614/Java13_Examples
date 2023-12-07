@@ -1,5 +1,7 @@
 package com.bilgeadam.lesson031;
-
+/*
+Unchecked Exception
+ */
 public class InfinityException extends RuntimeException {
     private String message;
 

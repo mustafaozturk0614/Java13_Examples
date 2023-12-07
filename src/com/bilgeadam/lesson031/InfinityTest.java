@@ -5,11 +5,16 @@ package com.bilgeadam.lesson031;
     eger girdimiz sayılar pozitif sayılar ise toplamı bize geri donsun
     değilse kendi yazdıgımız bir exception sınıfından hata olusturalım (EksiDegerException)
 
+    Checked Exception ==> kontrol edilmesi zorunlu exceptionlardır extends olarak Exception sınıfını alır
+
+    Unchecked Exception ==> kontrol edilmesi zorunlu olmayan exceptionlardır extend olarak RunTimeException sınıfı alır
+
+
  */
 public class InfinityTest {
 
 
-    public static void bolme2(Double bolunen,Double bolen){
+    public static void bolme2(Double bolunen,Double bolen) throws  InfinityException{
             if (bolen==0){
                 throw  new InfinityException("Bolen 0 olamaz");
             }
@@ -17,7 +22,7 @@ public class InfinityTest {
             System.out.println("sonuc==>"+bolum);
     }
 
-    public  static int pozitifToplama(int sayi1,int sayi2){
+    public  static int pozitifToplama(int sayi1,int sayi2) throws EksiDegerException {
         if (sayi1<0 || sayi2<0){
             throw  new EksiDegerException("Girilen sayılar pozitif tam sayi değildir");
         }
@@ -25,17 +30,26 @@ public class InfinityTest {
     }
 
     public static void main(String[] args) {
-        try {
-            bolme2(50D,0D);
-        }catch (InfinityException e){
-            System.out.println(e.getMessage());
-        }
-        try {
-            System.out.println(pozitifToplama(-5,7));
-        }catch (EksiDegerException e){
 
-            System.out.println("hata olustu: "+e.toString());
+        bolme2(50D,1D);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+
+
+        try {
+            System.out.println(pozitifToplama(50,-90));
+        } catch (EksiDegerException e) {
+            System.out.println(e.toString());
+        }
+        ;
+
+
+
+
 
 
         System.out.println("program devam ediyor");
