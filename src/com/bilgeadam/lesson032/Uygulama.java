@@ -1,4 +1,8 @@
 package com.bilgeadam.lesson032;
+
+import java.util.Locale;
+import java.util.Optional;
+
 /*
     1-Bir limanımız olacak bu limanda yuk yerleştirlecek alanlar olacak
     limanda yuk yerleştirelcek alanlar liman olusturken belilenebilir
@@ -23,9 +27,6 @@ package com.bilgeadam.lesson032;
         b)Cumartesi ve Pazar mesai saatleri dısındadır eger yuk girisi
         cumartesi ve ya pazar gerçekleştirilmek isteniyorsa bununla ilgili bir hata fırlatacagız
         eger bu kosullardan geçmiş isede
-
-
-
 
  */
 public class Uygulama {
@@ -55,15 +56,26 @@ public class Uygulama {
         }
     }
     public int   yukYeriSec2(){
-        int index=Utility.intDegerAlma("Lütfen bir yuk alanı seciniz");
-        boolean kontrol=false;
-            if (index>liman.getAlanSayisi()||index<0){
-                throw new LimanException(ErrorType.SINIRLAR_DISINDA);
-            }
-            if (liman.getYukler()[index]!=null){
-                throw new LimanException(ErrorType.DOLU_YER_SECIMI);
-            }
+      boolean kontrol=false;
+        int index=-1;
+       do {
+           index=Utility.intDegerAlma("Lütfen bir yuk alanı seciniz");
+           try {
+               kontrol=indexKontrol(index);
+           }catch (LimanException e){
+               System.out.println(e.toString());
+           }
+       }while (!kontrol);
             return index;
+    }
+    public boolean indexKontrol(int index){
+        if (index>liman.getAlanSayisi()||index<0){
+            throw new LimanException(ErrorType.SINIRLAR_DISINDA);
+        }
+        if (liman.getYukler()[index]!=null){
+            throw new LimanException(ErrorType.DOLU_YER_SECIMI);
+        }
+        return  true;
     }
 
     public  double agirlikBelirle(){
@@ -73,11 +85,96 @@ public class Uygulama {
         }
         return  agirlik;
     }
+
+    /*
+       4- tarihBelirleMetodu==>
+        a) girilen tarih bugunden öncemi önce ise bir hata fırlatacagız
+        b)Cumartesi ve Pazar mesai saatleri dısındadır eger yuk girisi
+        cumartesi ve ya pazar gerçekleştirilmek isteniyorsa bununla ilgili bir hata fırlatacagız
+        eger bu kosullardan geçmiş isede
+
+     */
+
+    public  MyDate tarihBelirle(){
+        long bugun=System.currentTimeMillis();
+        // kullanıcadan bugune kıyasla oncesinde veya sonrasında bir gun sayısı istiyoruz eger bugunden once ise kullancı - degerle girecek
+        int gunSayısı=Utility.intDegerAlma("Lutfen tarih giriniz + veya - kullanarak kac gun once veya sonra işlem yapmak istediğinizi belirtin");
+        long tarih=bugun+(gunSayısı*GUN);
+        EGun gun=gunBelirle();
+        if (tarih<bugun){
+            throw  new LimanException(ErrorType.GECERSIZ_KABUL_TARIHI);
+        }
+        if (gun.equals(EGun.CUMARTESI)||gun.equals(EGun.PAZAR)){
+            throw  new LimanException(ErrorType.GECERSIZ_KABUL_TARIHI,"Hafta sonu kabul yapılmamaktadır");
+        }
+        return new MyDate(tarih,gun);
+    }
+
+    public  EGun gunBelirle(){
+        boolean kontrol=false;
+        EGun gun=null;
+        do {
+            String stringGun=Utility.stringDegerAlma("Lütfen Gun degerini giriniz").toUpperCase(Locale.ENGLISH);
+            try {
+             gun =EGun.valueOf(stringGun);
+             kontrol=false;
+            }catch (IllegalArgumentException e){
+                System.out.println("Hata olustu:" +e.toString());
+                kontrol=true;
+            }
+
+        }while (kontrol);
+
+            return  gun;
+    }
+    /*
+    yuk olustur meotdu bize optional<Yuk> donecek
+    tarih belirle agırlık belirle
+    daha sonra tarih eger bunlarda hata yoksa yuk olusturulup geri donucelek hata varsa boş optional donulecek;
+     */
+
+    public Optional<Yuk> yukOlustur(){
+        Yuk yuk=null;
+        try {
+            String isim=Utility.stringDegerAlma("Lütfen yuk ismini giriniz");
+            MyDate date=tarihBelirle();
+            double agirlik=agirlikBelirle();
+            yuk=new Yuk(isim,agirlik,date);
+        }catch (LimanException e){
+            System.out.println("hata olustu: " +e.toString());
+        }catch (Exception e){
+            System.out.println("Beklenmeyen bir hata olustu: "+e.toString());
+        }
+        return Optional.ofNullable(yuk);
+    }
+    /*
+        once bir yuk yeri secimi yapacagız ==> yukYeriSec2
+        daha sonra bir yuk Olusturacagız==>yukOlustur()
+        eger bu yuk var ise yukunuz kabul olmustur eger bu yuk yoksa yukunuz kabul olmamıstır cıktısını verelim
+
+     */
+    public  void  yukKabul(){
+        int index=-1;
+        index=yukYeriSec2();
+        Optional<Yuk> yuk=yukOlustur();
+        if (yuk.isEmpty()){
+            System.out.println("Yukunuz Kabul olmamıştır");
+        }else{
+            System.out.println("Yukunuz Kabul olmuştur===>"+yuk.get().getIsim());
+            System.out.println("Yukunuz Kabul olmuştur===>"+yuk.map(x->x.getIsim()));
+            liman.getYukler()[index]=yuk.get();
+        }
+
+    }
     public static void main(String[] args) {
         Uygulama uygulama=new Uygulama();
       //  uygulama.yukYeriSec(new Yuk("Yuk3",5000,System.currentTimeMillis(),EGun.PERSEMBE));
       //  uygulama.yukYeriSec2();
-        System.out.println(uygulama.agirlikBelirle()); ;
+       // System.out.println(uygulama.tarihBelirle()); ;
+     //   System.out.println(uygulama.yukOlustur());
+        uygulama.yukKabul();
+        uygulama.yukKabul();
+        uygulama.yukKabul();
     }
 
 }
