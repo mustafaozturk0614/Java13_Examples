@@ -3,6 +3,8 @@ package com.bilgeadam.lesson034;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class DateOrnek {
@@ -47,7 +49,44 @@ public class DateOrnek {
         System.out.println(localDate2.minusYears(5));
         System.out.println(localDate2.isBefore(LocalDate.now()));
         System.out.println(localDate2.isAfter(LocalDate.now()));
+        //  17/10/1990
+        LocalDate localDate4=LocalDate.parse("1990-10-17");
+        System.out.println(localDate4);
 
+
+        //M==> ay
+        // d==> gun
+        // y==> yıl
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyy");
+        LocalDate localDate5=LocalDate.parse("17/10/1990",formatter);
+        System.out.println(localDate5);
+        DateTimeFormatter formatter2=DateTimeFormatter.ofPattern("MM/dd/yy");
+        String stringDate=LocalDate.now().plusDays(2).format(formatter2);
+        System.out.println(stringDate);
+        String stringDate2="10/24/21";
+        String defaultString="2021-10-24";
+        LocalDate localDate6=LocalDate.parse(defaultString);
+        System.out.println(localDate6);
+        LocalDate localDate7=LocalDate.parse(stringDate2,formatter2);
+        System.out.println(localDate7);
+
+        LocalDate localDate8=LocalDate.now();
+        LocalDate localDate9=LocalDate.parse("2022-12-10");
+
+        long ay=localDate9.until(localDate8, ChronoUnit.MONTHS);
+        System.out.println(ay);
+        long ay2=localDate8.until(localDate9, ChronoUnit.MONTHS);
+        System.out.println(ay2);
+        long gun=localDate9.until(localDate8, ChronoUnit.DAYS);
+        long yıl=localDate9.until(localDate8, ChronoUnit.YEARS);
+        long week=localDate9.until(localDate8, ChronoUnit.WEEKS);
+        long yuzyıl=localDate9.until(localDate8, ChronoUnit.CENTURIES);
+        System.out.println("gun"+gun);
+        System.out.println("yıl "+yıl);
+        System.out.println("hafta "+week);
+        System.out.println("yuzyıl "+yuzyıl);
+        long gun2=ChronoUnit.DAYS.between(localDate9,localDate8);
+        System.out.println(gun2);
 
 
     }
