@@ -13,14 +13,14 @@ public class ThreadTest2 {
         AtomicInteger atomicInteger=new AtomicInteger();
         AtomicInteger atomicInteger2=new AtomicInteger();
         Thread thread=new Thread(()->{
-            for (int i = 0; i <1 ; i++) {
+            for (int i = 0; i <10000 ; i++) {
                 System.out.println("1.thread ekleme yaptı");
                 list.add(i);
                 atomicInteger.incrementAndGet();
             }
         });
         Thread thread2=new Thread(()->{
-            for (int i = 0; i <1000 ; i++) {
+            for (int i = 0; i <10000 ; i++) {
                 System.out.println("2.thread ekleme yaptı");
                 list.add(i);
                 atomicInteger2.incrementAndGet();
@@ -30,7 +30,7 @@ public class ThreadTest2 {
         thread2.start();
         try {
             thread.join();
-           // thread2.join();
+           thread2.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
