@@ -1,4 +1,10 @@
 package com.bilgeadam.lesson037.okulapp;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
+
 /*
       1-ogrenci sınıfımız olacak
         -isim
@@ -21,8 +27,35 @@ package com.bilgeadam.lesson037.okulapp;
 public class Uygulama {
 
     public static void main(String[] args) {
-        Manager manager=new Manager();
-        Ogretmen ogretmen=new Ogretmen("Mustafa");
-        manager.dosyadanVeriOku(ogretmen.getIsim()).forEach(System.out::println);
+        BufferedReader bufferedReader=null;
+        try {
+            bufferedReader=new BufferedReader(new FileReader(Manager.path));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        Ogretmen ogretmen1=new Ogretmen("Barıs",bufferedReader);
+        Ogretmen ogretmen2=new Ogretmen("Mustafa",bufferedReader);
+        Ogretmen ogretmen3=new Ogretmen("Özge",bufferedReader);
+
+        ogretmen1.start();
+        ogretmen2.start();
+        ogretmen3.start();
+
+        try {
+            ogretmen1.join();
+            ogretmen2.join();
+            ogretmen3.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(ogretmen1.getOgrenciler());
+        System.out.println(ogretmen2.getOgrenciler());
+        System.out.println(ogretmen3.getOgrenciler());
+
+        System.out.println(ogretmen1.getOgrenciler().size());
+        System.out.println(ogretmen2.getOgrenciler().size());
+        System.out.println(ogretmen3.getOgrenciler().size());
     }
 }

@@ -1,8 +1,9 @@
 package com.bilgeadam.lesson037.okulapp;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Ogrenci {
+public class Ogrenci implements Serializable {
     private String isim;
     private double ort;
     private EDurum durum;
@@ -16,8 +17,17 @@ public class Ogrenci {
         this.isim = isim;
         this.ort = ort;
         this.dogumTarihi = dogumTarihi;
+        durumBelirle();
     }
 
+
+    public void durumBelirle(){
+        if (this.ort>60){
+            this.durum=EDurum.GECTI;
+        }else {
+            this.durum=EDurum.KALDI;
+        }
+    }
     public String getIsim() {
         return isim;
     }
