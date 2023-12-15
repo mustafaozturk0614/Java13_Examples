@@ -15,7 +15,6 @@ package com.bilgeadam.lesson037.designPatterns.factoryPattern.pizzaApp;
  */
 public class PizzaSiparis {
 
-
     public  EHamurTipi hamurTipiSec(){
         for (EHamurTipi hamurTipi:EHamurTipi.values()){
             System.out.println((hamurTipi.ordinal()+1)+"-"+hamurTipi);
@@ -36,6 +35,25 @@ public class PizzaSiparis {
         }
         int index=Utility.intDegerAlma("Lütfen bir boyut seciniz")-1;
         return EBoyut.values()[index];
+    }
+
+    public Pizza pizzaSec(){
+        EBoyut boyut=boyutSec();
+        EHamurTipi hamurTipi=hamurTipiSec();
+        ETur tur=turSec();
+        return PizzaFactory.pizzaOlustur(tur,hamurTipi,boyut);
+    }
+
+    public void menu(){
+        System.out.println("Pizza Sipariş Menusu");
+        Pizza pizza=pizzaSec();
+        siparisHazirlama(pizza);
+    }
+
+    public void siparisHazirlama(Pizza pizza) {
+        System.out.println("Sipraziniz hazırlanıyor detayları: ");
+        System.out.println(pizza);
+
     }
 
 }

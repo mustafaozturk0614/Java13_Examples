@@ -1,6 +1,6 @@
 package com.bilgeadam.lesson037.designPatterns.factoryPattern.pizzaApp;
 
-public class Pizza {
+public abstract class Pizza {
     private ETur tur;
     private EHamurTipi hamurTipi;
     private EBoyut boyut;

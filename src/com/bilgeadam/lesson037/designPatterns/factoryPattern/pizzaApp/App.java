@@ -10,4 +10,10 @@ package com.bilgeadam.lesson037.designPatterns.factoryPattern.pizzaApp;
 
  */
 public class App {
+
+    public static void main(String[] args) {
+
+        new PizzaSiparis().menu();
+
+    }
 }
