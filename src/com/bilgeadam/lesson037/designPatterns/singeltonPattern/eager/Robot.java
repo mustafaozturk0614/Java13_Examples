@@ -1,4 +1,4 @@
-package com.bilgeadam.lesson037.designPatterns.singeltonPattern.lazy;
+package com.bilgeadam.lesson037.designPatterns.singeltonPattern.eager;
 /*
     1- 1 tane robotmuz var bu robotun birde calıs metodu olsun ==>( hascode()==> numaralı robot calısıyor)
     2-Ev halkı sınıfmız olsun bu sınıfta robotcagır metodu olsun
@@ -9,22 +9,12 @@ package com.bilgeadam.lesson037.designPatterns.singeltonPattern.lazy;
 
  */
 public class Robot {
-
-
-    private static Robot instance;
+    private static Robot instance=new Robot();
 
     private Robot() {
     }
-    /*
-        thread kullanımda birden fazla nesne uretmini engellemek için
-        (aynı anda birden fazla threadin bu metoda erişmini engellemek için )
-        metodu synchronized haline getirdik boylece bir metodda bir
-        thread işlem yaptıgı zman diğer threadler işlemin bitmesini bekliyor
-     */
-    public  synchronized static  Robot getInstance(){
-        if (instance==null){
-            instance=new Robot();
-        }
+
+    public   static  Robot getInstance(){
         return instance;
     }
     public void calis(){
